@@ -18,13 +18,16 @@
 <body>
     <div class="container">
         <div class="d-flex justify-content-center">
-            <div>
-                <input></input>
-                <form action="/search" method="post">
+            <div id="search">
+                <form action="/search/" method="post">
+                    <input name="searchInput" ></input>
                     <button name="searchBtn" class="btn btn-primary mt-5" type="submit">Test</button>
                 </form>
             </div>
-            <p>{{ spotify_song_name }}</p>
+            <!-- <p>{{ spotify_song_name }}</p> -->
+            <div id="soundcloud">
+                <p> {{soundcloud_song_name}} </p>
+            </div>
         </div>
     </div>
 
