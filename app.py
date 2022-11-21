@@ -12,7 +12,7 @@ scSongXpath = '/html/body/div[1]/div[2]/div[2]/div/div/div[3]/div/div/div/ul/li[
 
 options = Options()
 options.add_argument('--window-size=1920,1080') 
-# options.add_argument("--headless")
+options.add_argument("--headless")
 options.add_argument('--disable-gpu')
 driver = webdriver.Chrome(options=options)
 
@@ -58,5 +58,5 @@ def search():
     #     elem = driver.find_element(By.XPATH, spotifySongNameXpath)
     #     spotifySongName = elem.text
 
-    driver.quit()
+    driver.close()
     return render_template('index.html', sc_song_link = scSongLink, sc_song_src = scSongSrc)
