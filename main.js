@@ -9,20 +9,34 @@ async function searchSongs(query) {
 var selectedPlayer;
 var ytPlaying = false;
 
+var scWidget;
+
+function loadSoundcloud() { 
+    var frame = document.getElementById("soundcloudFrame");
+    scWidget = SC.Widget(frame);
+
+    scWidget.bind(SC.Widget.Events.PLAY, function () { 
+        alert("damn")
+        setVolumeFromSlider();
+    });
+}
+
 function SelectSoundcloudSong(songLink) {
     const link = `https://w.soundcloud.com/player/?url=${songLink}&auto_play=true`;
     document.getElementById("soundcloudFrame").setAttribute("src", link);
     selectedPlayer = 'soundcloud';
     player.stopVideo();
     ytPlaying = false;
+    setVolumeFromSlider();
 }
 
 function SelectYoutubeSong(ID) {
     const link = `https://www.youtube.com/embed/${ID}?autoplay=1&controls=0&loop=0&modestbranding=1&enablejsapi=1&html5=1`;
     document.getElementById("ytPlayer").setAttribute("src", link);
-    togglePlay();
+    scWidget.pause();
     selectedPlayer = 'youtube';
     ytPlaying = true;
+    setVolumeFromSlider();
 }
 
 function addResultsToList(data) { 
@@ -35,7 +49,7 @@ function addResultsToList(data) {
 
         let ytSong = youtube.items[i]
         ytBtn = document.createElement("button");
-        ytBtn.classList = "song-select-button d-flex btn btn-outline-light";
+        ytBtn.classList = "song-select-button d-flex btn btn-dark";
         ytBtn.innerHTML = `<img src=${ytSong.snippet.thumbnails.default.url} alt="Song image">
                     <p class="song-name">${ytSong.snippet.title}\n<i class="bi bi-youtube"></i></p>`;
         resultDiv.appendChild(ytBtn);
@@ -47,7 +61,7 @@ function addResultsToList(data) {
 
         let scSong = soundcloud.collection[i];
         scBtn = document.createElement("button");
-        scBtn.classList = "song-select-button d-flex btn btn-outline-light";
+        scBtn.classList = "song-select-button d-flex btn btn-dark";
         scBtn.innerHTML = `<img src=${scSong.artwork_url} alt="soundcloud" onerror="this.onerror=null;this.src='https://www.shareicon.net/data/128x128/2015/09/11/99506_soundcloud_512x512.png';">
                     <p class="song-name">${scSong.title}\n`;
         resultDiv.appendChild(scBtn);
@@ -77,8 +91,6 @@ document.getElementById("searchInput").addEventListener("keypress", function (ev
 function togglePlay() { 
 
     if (selectedPlayer === 'soundcloud') {
-        var frame = document.getElementById("soundcloudFrame");
-        var scWidget = SC.Widget(frame);
         scWidget.toggle();
     }
     else {
@@ -95,30 +107,27 @@ function togglePlay() {
 
 
 
-// global variable for the player
 var player;
 
-// this function gets called when API is ready to use
 function onYouTubePlayerAPIReady() {
-    // create the global player from the specific iframe (#video)
     player = new YT.Player('ytPlayer', {
         events: {
-            // call this function when player is ready to use
-            // 'onReady': onPlayerReady,
-            // 'onStateChange': onPlayerStateChange
+            'onReady': onPlayerReady,
+            'onStateChange': onStateChange
         }
     });
 }
 
-// function onload() {
-//     var frame = document.getElementById("soundcloudFrame");
-//     var widget = SC.Widget(frame);
-//     console.log("loaded frame")
-//     widget.bind('READY', function () {
-//         document.getElementById('test').innerHTML = 'DAMN';
-//         // Get the current position of the track
-//         widget.getVolume(function (volume) {
-//             alert(volume);
-//         })
-//     });
-// }
+function onStateChange(event) {
+    setVolumeFromSlider();
+}
+
+function onPlayerReady(event) { 
+    setVolumeFromSlider();
+}
+
+function setVolumeFromSlider() { 
+    var volume = document.getElementById("volumeSlider").value;
+    player.setVolume(volume);
+    scWidget.setVolume(volume);
+}

@@ -16,39 +16,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container">
 
         <div id="searchDiv" class="text-center">
-            <input name="searchInput" id="searchInput" style="width: 50vh; margin: 0 auto;"></input>
+            <input name="searchInput" class="m-2" id="searchInput" style="width: 50vh; margin: 0 auto;"></input>
             <br>
-            <button name="searchBtn" class="btn btn-primary" type="submit" onclick="submitSearch()">Search</button>
+            <button name="searchBtn" class="btn btn-primary m-1" type="submit" onclick="submitSearch()">Search</button>
         </div>
 
-        <div class="mt-5">
-
-            <div id="results">
-                
-            </div>
-
-            <div id="playerDiv">
-                
-                <div id="soundcloud" hidden>
-                    <iframe id="soundcloudFrame" width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay" src=""></iframe>
+        <div id="playerDiv">
+        
+            <div hidden>
+                <div id="soundcloud">
+                    <iframe id="soundcloudFrame" width="100%" height="100" scrolling="no" frameborder="no" allow="autoplay"
+                        src=""></iframe>
                 </div>
-
-                <div id="youtube" hidden>
-                    <iframe id="ytPlayer" frameborder="0" allowfullscreen="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="Come True"
-                        width="250" height="250"
+            
+                <div id="youtube">
+                    <iframe onload="loadSoundcloud()" id="ytPlayer" frameborder="0" allowfullscreen="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        title="Come True" width="250" height="250"
                         src="https://www.youtube.com/embed/0?autoplay=0&controls=0&loop=0&modestbranding=1&enablejsapi=1&html5=1">
                     </iframe>
                 </div>
-
-                <button class="btn btn-outline-primary mt-3" onclick="togglePlay()"><i class="bi bi-play"></i></button>
-                <input type="range" class="form-range mb-3" min="0" max="0" step="1" id="customRange1">
             </div>
-
+        
+            <div id="controls" class="d-flex">
+                <input type="range" class="form-range mt-3" value="100" min="0" max="100" step="1" id="volumeSlider" onclick="setVolumeFromSlider()">
+                <button id="playButton" class="btn btn-outline-primary" onclick="togglePlay()"><i class="bi bi-play"></i></button>
+            </div>
+            <input type="range" class="form-range mb-3" min="0" max="0" step="1" id="customRange1">
         </div>
+
+        <div id="results">
+            
+        </div>
+
     </div>
     <script src="main.js"></script>
     <!-- Soundcloud player API -->

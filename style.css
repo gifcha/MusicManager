@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    height: 10000px;
+    min-height: 250vh;
 }
 
 body {
@@ -11,18 +11,20 @@ body {
 
 #searchDiv {
     position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0%);
     top: 0px;
     text-align: center;
-    margin-left: 35%;
-    background-color: darkslategray;
+    background-color: rgb(36, 36, 36);
 }
 
 #playerDiv {
     position: fixed;
-    bottom: 0px;
-    text-align: center;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    background-color: darkslategray;
+    text-align: center;
+    background-color: rgb(36, 36, 36);
 }
 
 .song-select-button {
@@ -43,4 +45,21 @@ body {
 .song-description {
     font-size: 14px;
     color: gray;
+}
+
+#results {
+    margin-top: 10vh;
+}
+
+#controls {
+    text-align: center;
+}
+
+#playButton {
+    margin-left: 40%;
+    transform: translate(-50%, 0%);
+}
+
+#volumeSlider {
+    width: 10%;
 }
