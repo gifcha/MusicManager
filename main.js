@@ -99,10 +99,14 @@ function togglePlay() {
             ytPlaying = true;
         }
         else {
-            player.stopVideo();
+            player.pauseVideo();
             ytPlaying = false;
         }
     }
+
+    let btn = document.getElementById("playButton")
+    if (btn.innerHTML == '<i class="bi bi-play"></i>') { btn.innerHTML = '<i class="bi bi-pause-fill"></i>'; }
+    else { btn.innerHTML = '<i class="bi bi-play"></i>'; }
 }
 
 
@@ -120,6 +124,10 @@ function onYouTubePlayerAPIReady() {
 
 function onStateChange(event) {
     setVolumeFromSlider();
+    document.getElementById("durationSlider").setAttribute('max', player.getDuration());
+    if (event.data === 1) {
+        document.getElementById("durationSlider").value += 1;
+    }
 }
 
 function onPlayerReady(event) { 

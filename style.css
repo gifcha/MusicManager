@@ -53,9 +53,12 @@ body {
 
 #controls {
     text-align: center;
+    height: 5vh;
 }
 
 #playButton {
+    height: 48px;
+    width: 48px;
     margin-left: 40%;
     transform: translate(-50%, 0%);
 }
