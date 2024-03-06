@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const app = express();
 
-const soundcloudClientId = '0K8gqs6E9DAVUafZxVq6xIIVVjtIgXTv';
+const soundcloudClientId = 'AoK8Elg89gO0ExM48TqYfYISv4ZK4gUj';
 const soundcloudUrl = 'https://api-v2.soundcloud.com/search';
 
 const youtubeKey = 'AIzaSyD-4Brk6ZTC83QNLrXrB3VcJi1FXs27YwM'
